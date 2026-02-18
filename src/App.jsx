@@ -8,6 +8,7 @@ function App() {
   const [language, setLanguage] = useState('fr');
   const [currency, setCurrency] = useState('BYN');
   const [isMobile, setIsMobile] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -16,6 +17,14 @@ function App() {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const convertPrice = (price) => {
@@ -86,15 +95,15 @@ function App() {
         {!isMobile && (
           <div className="md:w-1/4">
             <div className="sticky top-4">
-              <h3 className="text-neon-cyan font-bebas text-xl mb-4 neon-text text-center">
+              <h3 className="text-neon-cyan font-bebas text-lg mb-2 neon-text text-center">
                 {language === 'fr' ? 'CATÉGORIES' : language === 'en' ? 'CATEGORIES' : 'КАТЕГОРИИ'}
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {Object.entries(categories).map(([name, key]) => (
                   <button
                     key={key}
                     onClick={() => setActiveCategory(key)}
-                    className={`category-button w-full text-left p-4 rounded-lg transition-all duration-300 font-rajdhani transform hover:scale-105 hover:shadow-lg ${
+                    className={`category-button w-full text-left p-2 rounded transition-all duration-300 font-rajdhani transform hover:scale-105 hover:shadow-lg ${
                       activeCategory === key
                         ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink border-2 border-neon-cyan'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:border-2 hover:border-neon-pink/50 border-2 border-transparent'
@@ -103,7 +112,7 @@ function App() {
                     <div className="flex items-center justify-between">
                       <span className="font-semibold">{name}</span>
                       {activeCategory === key && (
-                        <span className="text-xs bg-white/20 px-2 py-1 rounded-full">✓</span>
+                        <span className="text-xs bg-white/20 px-1 py-0.5 rounded-full text-xs">✓</span>
                       )}
                     </div>
                   </button>
@@ -307,6 +316,30 @@ function App() {
             </div>
           </div>
         </footer>
+        
+        {/* Back to Top Button */}
+        {showBackToTop && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="fixed bottom-6 right-6 bg-gradient-to-r from-neon-pink to-neon-cyan text-white p-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 z-50"
+            aria-label="Back to top"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 10l7-7m0 0l7 7m-7-7v18"
+              />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );
