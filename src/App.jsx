@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { menuData, languages, currencies } from './data';
 import SafariLogo from './components/SafariLogo';
-import QRCode from './components/QRCode';
 
 function App() {
   const [activeTab, setActiveTab] = useState('drinks');
@@ -294,9 +293,6 @@ function App() {
             </div>
           </div>
         </footer>
-        
-        {/* QR Code Widget */}
-        <QRCode />
       </div>
     </div>
   );
