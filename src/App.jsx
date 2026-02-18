@@ -56,10 +56,10 @@ function App() {
   };
 
   const renderMenuItem = (item, index) => (
-    <div key={index} className="menu-item p-4 border-b border-gray-800 hover:bg-gray-900/50 transition-all duration-300 hover:border-l-4 hover:border-l-neon-pink">
+    <div key={index} className="menu-item p-4 border-b border-gray-800 hover:bg-gray-900/50 transition-all duration-300 hover:border-l-4 hover:border-l-neon-pink hover-lift animate-slide-in-left">
       <div className="flex justify-between items-start">
         <div className="flex-1">
-          <h4 className="font-bold text-white mb-1 font-bebas text-lg hover:text-neon-cyan transition-colors duration-200">
+          <h4 className="font-bold text-white mb-1 font-bebas text-lg hover:text-neon-cyan transition-colors duration-200 hover-rotate">
             {typeof item.name === 'string' ? item.name : item.name[language]}
           </h4>
           {item.description && (
@@ -74,7 +74,7 @@ function App() {
           )}
         </div>
         <div className="ml-4">
-          <span className="price-tag font-montserrat bg-gradient-to-r from-neon-pink to-neon-cyan bg-clip-text text-transparent font-bold text-lg">
+          <span className="price-tag font-montserrat bg-gradient-to-r from-neon-pink to-neon-cyan bg-clip-text text-transparent font-bold text-lg hover-glow">
             {convertPrice(item.price)}
           </span>
         </div>
@@ -103,9 +103,9 @@ function App() {
                   <button
                     key={key}
                     onClick={() => setActiveCategory(key)}
-                    className={`category-button w-full text-left p-2 rounded transition-all duration-300 font-rajdhani transform hover:scale-105 hover:shadow-lg ${
+                    className={`category-button w-full text-left p-2 rounded transition-all duration-300 font-rajdhani transform hover:scale-105 hover:shadow-lg hover-lift ${
                       activeCategory === key
-                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink border-2 border-neon-cyan'
+                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink border-2 border-neon-cyan animate-glow-pulse'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:border-2 hover:border-neon-pink/50 border-2 border-transparent'
                     }`}
                   >
@@ -144,7 +144,11 @@ function App() {
           
           <div className="bg-gray-900 rounded-lg overflow-hidden shadow-2xl flex-grow flex flex-col">
             <div className="scroll-container flex-grow overflow-y-auto">
-              {displayItems.map((item, index) => renderMenuItem(item, index))}
+              {displayItems.map((item, index) => (
+                <div key={index} style={{ animationDelay: `${index * 0.1}s` }}>
+                  {renderMenuItem(item, index)}
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -213,13 +217,13 @@ function App() {
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-center gap-4">
               {/* Logo on the left - always */}
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 animate-bounce-in">
                 <SafariLogo />
               </div>
               
               {/* Title and subtitle on the right - always */}
               <div className="text-left">
-                <h1 className="font-bebas text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-cyan neon-text mb-1">
+                <h1 className="font-bebas text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-cyan neon-text mb-1 animate-gradient">
                   {currentLang.title}
                 </h1>
                 <p className="font-rajdhani text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 tracking-wider">
@@ -235,9 +239,9 @@ function App() {
                   <button
                     key={lang}
                     onClick={() => setLanguage(lang)}
-                    className={`px-2 py-1 rounded font-rajdhani text-xs transition-all duration-300 ${
+                    className={`px-2 py-1 rounded font-rajdhani text-xs transition-all duration-300 hover-lift ${
                       language === lang
-                        ? 'bg-neon-pink text-anthracite font-bold'
+                        ? 'bg-neon-pink text-anthracite font-bold animate-glow-pulse'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                     }`}
                   >
@@ -250,9 +254,9 @@ function App() {
                   <button
                     key={curr}
                     onClick={() => setCurrency(curr)}
-                    className={`px-2 py-1 rounded font-rajdhani text-xs transition-all duration-300 ${
+                    className={`px-2 py-1 rounded font-rajdhani text-xs transition-all duration-300 hover-lift ${
                       currency === curr
-                        ? 'bg-neon-cyan text-anthracite font-bold'
+                        ? 'bg-neon-cyan text-anthracite font-bold animate-glow-pulse'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                     }`}
                   >
@@ -274,10 +278,10 @@ function App() {
                   <button
                     key={key}
                     onClick={() => setActiveTab(key)}
-                    className={`px-6 py-3 rounded-full font-bebas text-lg transition-all duration-300 ${
+                    className={`px-6 py-3 rounded-lg font-bebas text-lg transition-all duration-300 hover-lift ${
                       activeTab === key
-                        ? 'tab-active text-white'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                        ? 'tab-active text-white animate-glow-pulse'
+                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                     }`}
                   >
                     {label}
@@ -321,7 +325,7 @@ function App() {
         {showBackToTop && (
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-6 right-6 bg-gradient-to-r from-neon-pink to-neon-cyan text-white p-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 z-50"
+            className="fixed bottom-6 right-6 bg-gradient-to-r from-neon-pink to-neon-cyan text-white p-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 z-50 animate-bounce-in hover-glow animate-float"
             aria-label="Back to top"
           >
             <svg
