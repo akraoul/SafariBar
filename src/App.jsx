@@ -297,7 +297,7 @@ function App() {
                 </div>
               </div>
               
-              <div className="space-y-2 font-rajdhani">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 font-rajdhani">
                 <p className="text-gold font-semibold">{currentLang.footer.hours}</p>
                 <p className="text-gray-300">{currentLang.footer.address}</p>
                 <p className="text-neon-cyan font-semibold">{currentLang.footer.contact}</p>
