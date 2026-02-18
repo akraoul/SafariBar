@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur QR Code - Safari Lounge Bar</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #121212, #1a1a1a);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 85, 0.5);
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #FF0055;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
+        }
+        .url {
+            background: rgba(0, 240, 255, 0.1);
+            border: 2px solid #00F0FF;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            word-break: break-all;
+            color: #00F0FF;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+        #qrcode {
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        .download-btn {
+            background: linear-gradient(45deg, #FF0055, #FFD700);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 30px rgba(255, 0, 85, 0.5);
+        }
+        .neon-text {
+            background: linear-gradient(45deg, #FF0055, #FFD700, #00F0FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="neon-text">🦁 SAFARI LOUNGE BAR</h1>
+        
+        <div class="url">
+            📍 https://safari-bar.vercel.app/
+        </div>
+        
+        <div id="qrcode"></div>
+        
+        <button class="download-btn" onclick="downloadQR()">
+            📥 Télécharger le QR Code
+        </button>
+        
+        <div style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
+            <p>Scannez ce QR code pour accéder au menu du Safari Lounge Bar</p>
+            <p style="margin-top: 10px;">🍸 Cocktails • 💨 Chicha • 🍽️ Cuisine</p>
+        </div>
+    </div>
+
+    <script>
+        // URL du site Safari Lounge Bar
+        const safariBarURL = 'https://safari-bar.vercel.app/';
+        
+        // Générer le QR code
+        const qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: safariBarURL,
+            width: 256,
+            height: 256,
+            colorDark: "#121212",
+            colorLight: "#FFFFFF",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+        
+        // Fonction pour télécharger le QR code
+        function downloadQR() {
+            const canvas = document.querySelector('#qrcode canvas');
+            const link = document.createElement('a');
+            link.download = 'safari-lounge-bar-qrcode.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Ajouter un effet de chargement
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease-in';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
