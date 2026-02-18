@@ -92,13 +92,18 @@ function App() {
                   <button
                     key={key}
                     onClick={() => setActiveCategory(key)}
-                    className={`w-full text-left p-3 rounded transition-all duration-300 font-rajdhani ${
+                    className={`w-full text-left p-4 rounded-lg transition-all duration-300 font-rajdhani transform hover:scale-105 ${
                       activeCategory === key
-                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink'
-                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink shadow-lg border border-neon-cyan'
+                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:border hover:border-neon-pink/50'
                     }`}
                   >
-                    {name}
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold">{name}</span>
+                      {activeCategory === key && (
+                        <span className="text-xs bg-white/20 px-2 py-1 rounded-full">●</span>
+                      )}
+                    </div>
                   </button>
                 ))}
               </div>
@@ -109,15 +114,22 @@ function App() {
         <div className="flex-1 flex flex-col">
           {isMobile && (
             <div className="mb-4">
-              <select
-                value={activeCategory}
-                onChange={(e) => setActiveCategory(e.target.value)}
-                className="w-full p-3 bg-gray-800 text-white border border-neon-pink rounded font-rajdhani"
-              >
-                {Object.entries(categories).map(([name, key]) => (
-                  <option key={key} value={key}>{name}</option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  value={activeCategory}
+                  onChange={(e) => setActiveCategory(e.target.value)}
+                  className="w-full p-4 bg-gray-800 text-white border-2 border-neon-pink rounded-lg font-rajdhani appearance-none cursor-pointer focus:outline-none focus:border-neon-cyan focus:shadow-neon-pink transition-all duration-300"
+                >
+                  {Object.entries(categories).map(([name, key]) => (
+                    <option key={key} value={key}>{name}</option>
+                  ))}
+                </select>
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                  <svg className="w-5 h-5 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
             </div>
           )}
           
@@ -214,9 +226,9 @@ function App() {
                   <button
                     key={lang}
                     onClick={() => setLanguage(lang)}
-                    className={`px-3 py-1 rounded font-rajdhani text-sm transition-all duration-300 ${
+                    className={`px-4 py-2 rounded-full font-rajdhani text-sm font-semibold transition-all duration-300 ${
                       language === lang
-                        ? 'bg-neon-pink text-anthracite font-bold'
+                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                     }`}
                   >
@@ -229,9 +241,9 @@ function App() {
                   <button
                     key={curr}
                     onClick={() => setCurrency(curr)}
-                    className={`px-3 py-1 rounded font-rajdhani text-sm transition-all duration-300 ${
+                    className={`px-4 py-2 rounded-full font-rajdhani text-sm font-semibold transition-all duration-300 ${
                       currency === curr
-                        ? 'bg-neon-cyan text-anthracite font-bold'
+                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                     }`}
                   >
@@ -243,57 +255,56 @@ function App() {
           </div>
         </header>
 
-        {/* Main Content */}
-        <main className="container mx-auto px-4 py-8 flex-grow flex flex-col">
-          {/* Tabs */}
-          <div className="flex justify-center mb-8">
-            <div className="bg-gray-900 rounded-full p-1 shadow-2xl">
-              <div className="flex flex-col sm:flex-row gap-1">
-                {Object.entries(currentLang.tabs).map(([key, label]) => (
-                  <button
-                    key={key}
-                    onClick={() => setActiveTab(key)}
-                    className={`px-6 py-3 rounded-full font-bebas text-lg transition-all duration-300 ${
-                      activeTab === key
-                        ? 'tab-active text-white'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
+        {/* Tab Navigation */}
+        <nav className="bg-gray-900 border-b border-neon-cyan">
+          <div className="container mx-auto px-4">
+            <div className="flex justify-center">
+              {Object.entries(currentLang.tabs).map(([key, label]) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveTab(key)}
+                  className={`px-8 py-4 font-bebas text-xl font-semibold transition-all duration-300 border-b-4 ${
+                    activeTab === key
+                      ? 'text-neon-pink border-neon-pink bg-gray-800'
+                      : 'text-gray-400 border-transparent hover:text-gray-300 hover:bg-gray-800'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
           </div>
+        </nav>
 
-          {/* Tab Content */}
+        {/* Main Content */}
+        <main className="container mx-auto px-4 py-8 flex-grow flex flex-col">
           <div className="flex-grow flex flex-col animate-pulse-neon">
             {activeTab === 'drinks' && renderDrinksTab()}
             {activeTab === 'hookah' && renderHookahTab()}
             {activeTab === 'food' && renderFoodTab()}
           </div>
         </main>
+      </div>
 
-        {/* Footer */}
-        <footer className="bg-gradient-to-r from-anthracite via-gray-900 to-anthracite border-t border-neon-cyan mt-16">
-          <div className="container mx-auto px-4 py-8">
-            <div className="text-center">
-              {/* Logo in footer - much smaller */}
-              <div className="mb-4 flex justify-center">
-                <div className="transform scale-50">
-                  <SafariLogo />
-                </div>
-              </div>
-              
-              <div className="space-y-2 font-rajdhani">
-                <p className="text-gold font-semibold">{currentLang.footer.hours}</p>
-                <p className="text-gray-300">{currentLang.footer.address}</p>
-                <p className="text-neon-cyan font-semibold">{currentLang.footer.contact}</p>
+      {/* Fixed Footer */}
+      <footer className="bg-gradient-to-r from-anthracite via-gray-900 to-anthracite border-t border-neon-cyan shadow-2xl mt-auto">
+        <div className="container mx-auto px-4 py-6">
+          <div className="text-center">
+            {/* Logo in footer - much smaller */}
+            <div className="mb-3 flex justify-center">
+              <div className="transform scale-40">
+                <SafariLogo />
               </div>
             </div>
+            
+            <div className="space-y-1 font-rajdhani">
+              <p className="text-gold font-semibold text-sm">{currentLang.footer.hours}</p>
+              <p className="text-gray-300 text-sm">{currentLang.footer.address}</p>
+              <p className="text-neon-cyan font-semibold text-sm">{currentLang.footer.contact}</p>
+            </div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </div>
   );
 }
