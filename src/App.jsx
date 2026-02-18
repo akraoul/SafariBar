@@ -288,19 +288,21 @@ function App() {
 
         {/* Footer - Fixed at bottom */}
         <footer className="bg-gradient-to-r from-anthracite via-gray-900 to-anthracite border-t border-neon-cyan mt-auto">
-          <div className="container mx-auto px-4 py-8">
+          <div className="container mx-auto px-2 py-4">
             <div className="text-center">
               {/* Logo in footer - much smaller */}
-              <div className="mb-4 flex justify-center">
-                <div className="transform scale-50">
+              <div className="mb-2 flex justify-center">
+                <div className="transform scale-40">
                   <SafariLogo />
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 font-rajdhani">
-                <p className="text-gold font-semibold">{currentLang.footer.hours}</p>
-                <p className="text-gray-300">{currentLang.footer.address}</p>
-                <p className="text-neon-cyan font-semibold">{currentLang.footer.contact}</p>
+              <div className="flex items-center justify-center gap-2 sm:gap-4 font-rajdhani text-xs sm:text-sm">
+                <p className="text-gold font-semibold whitespace-nowrap">{currentLang.footer.hours}</p>
+                <span className="text-gray-500 hidden sm:inline">|</span>
+                <p className="text-gray-300 whitespace-nowrap">{currentLang.footer.address}</p>
+                <span className="text-gray-500 hidden sm:inline">|</span>
+                <p className="text-neon-cyan font-semibold whitespace-nowrap">{currentLang.footer.contact}</p>
               </div>
             </div>
           </div>
