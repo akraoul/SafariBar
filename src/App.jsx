@@ -47,23 +47,25 @@ function App() {
   };
 
   const renderMenuItem = (item, index) => (
-    <div key={index} className="menu-item p-4 border-b border-gray-800 hover:bg-gray-900 transition-all duration-300">
+    <div key={index} className="menu-item p-4 border-b border-gray-800 hover:bg-gray-900/50 transition-all duration-300 hover:border-l-4 hover:border-l-neon-pink">
       <div className="flex justify-between items-start">
         <div className="flex-1">
-          <h4 className="font-bold text-white mb-1 font-bebas text-lg">
+          <h4 className="font-bold text-white mb-1 font-bebas text-lg hover:text-neon-cyan transition-colors duration-200">
             {typeof item.name === 'string' ? item.name : item.name[language]}
           </h4>
           {item.description && (
-            <p className="text-gray-400 text-sm mb-1 font-rajdhani">
+            <p className="text-gray-400 text-sm mb-1 font-rajdhani leading-relaxed">
               {typeof item.description === 'string' ? item.description : item.description[language]}
             </p>
           )}
           {item.volume && (
-            <p className="text-gray-500 text-xs font-rajdhani">{item.volume}</p>
+            <p className="text-gray-500 text-xs font-rajdhani bg-gray-800/50 inline-block px-2 py-1 rounded">
+              {item.volume}
+            </p>
           )}
         </div>
         <div className="ml-4">
-          <span className="price-tag font-montserrat">
+          <span className="price-tag font-montserrat bg-gradient-to-r from-neon-pink to-neon-cyan bg-clip-text text-transparent font-bold text-lg">
             {convertPrice(item.price)}
           </span>
         </div>
@@ -84,7 +86,7 @@ function App() {
         {!isMobile && (
           <div className="md:w-1/4">
             <div className="sticky top-4">
-              <h3 className="text-neon-cyan font-bebas text-xl mb-4 neon-text">
+              <h3 className="text-neon-cyan font-bebas text-xl mb-4 neon-text text-center">
                 {language === 'fr' ? 'CATÉGORIES' : language === 'en' ? 'CATEGORIES' : 'КАТЕГОРИИ'}
               </h3>
               <div className="space-y-2">
@@ -92,16 +94,16 @@ function App() {
                   <button
                     key={key}
                     onClick={() => setActiveCategory(key)}
-                    className={`w-full text-left p-4 rounded-lg transition-all duration-300 font-rajdhani transform hover:scale-105 ${
+                    className={`category-button w-full text-left p-4 rounded-lg transition-all duration-300 font-rajdhani transform hover:scale-105 hover:shadow-lg ${
                       activeCategory === key
-                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink shadow-lg border border-neon-cyan'
-                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:border hover:border-neon-pink/50'
+                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink border-2 border-neon-cyan'
+                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:border-2 hover:border-neon-pink/50 border-2 border-transparent'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-semibold">{name}</span>
                       {activeCategory === key && (
-                        <span className="text-xs bg-white/20 px-2 py-1 rounded-full">●</span>
+                        <span className="text-xs bg-white/20 px-2 py-1 rounded-full">✓</span>
                       )}
                     </div>
                   </button>
@@ -113,22 +115,20 @@ function App() {
         
         <div className="flex-1 flex flex-col">
           {isMobile && (
-            <div className="mb-4">
-              <div className="relative">
+            <div className="mb-6">
+              <div className="mobile-category-select bg-gray-800 rounded-lg p-4 border-2 border-neon-pink/30">
+                <label className="block text-neon-cyan font-bebas text-sm mb-2 neon-text">
+                  {language === 'fr' ? 'CATÉGORIE' : language === 'en' ? 'CATEGORY' : 'КАТЕГОРИЯ'}
+                </label>
                 <select
                   value={activeCategory}
                   onChange={(e) => setActiveCategory(e.target.value)}
-                  className="w-full p-4 bg-gray-800 text-white border-2 border-neon-pink rounded-lg font-rajdhani appearance-none cursor-pointer focus:outline-none focus:border-neon-cyan focus:shadow-neon-pink transition-all duration-300"
+                  className="w-full p-3 bg-gray-900 text-white border border-neon-pink rounded-lg font-rajdhani focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
                 >
                   {Object.entries(categories).map(([name, key]) => (
                     <option key={key} value={key}>{name}</option>
                   ))}
                 </select>
-                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                  <svg className="w-5 h-5 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
               </div>
             </div>
           )}
@@ -226,9 +226,9 @@ function App() {
                   <button
                     key={lang}
                     onClick={() => setLanguage(lang)}
-                    className={`px-4 py-2 rounded-full font-rajdhani text-sm font-semibold transition-all duration-300 ${
+                    className={`px-3 py-1 rounded font-rajdhani text-sm transition-all duration-300 ${
                       language === lang
-                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink'
+                        ? 'bg-neon-pink text-anthracite font-bold'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                     }`}
                   >
@@ -241,9 +241,9 @@ function App() {
                   <button
                     key={curr}
                     onClick={() => setCurrency(curr)}
-                    className={`px-4 py-2 rounded-full font-rajdhani text-sm font-semibold transition-all duration-300 ${
+                    className={`px-3 py-1 rounded font-rajdhani text-sm transition-all duration-300 ${
                       currency === curr
-                        ? 'bg-gradient-to-r from-neon-pink to-neon-cyan text-white shadow-neon-pink'
+                        ? 'bg-neon-cyan text-anthracite font-bold'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                     }`}
                   >
@@ -255,56 +255,57 @@ function App() {
           </div>
         </header>
 
-        {/* Tab Navigation */}
-        <nav className="bg-gray-900 border-b border-neon-cyan">
-          <div className="container mx-auto px-4">
-            <div className="flex justify-center">
-              {Object.entries(currentLang.tabs).map(([key, label]) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveTab(key)}
-                  className={`px-8 py-4 font-bebas text-xl font-semibold transition-all duration-300 border-b-4 ${
-                    activeTab === key
-                      ? 'text-neon-pink border-neon-pink bg-gray-800'
-                      : 'text-gray-400 border-transparent hover:text-gray-300 hover:bg-gray-800'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </nav>
-
         {/* Main Content */}
         <main className="container mx-auto px-4 py-8 flex-grow flex flex-col">
+          {/* Tabs */}
+          <div className="flex justify-center mb-8">
+            <div className="bg-gray-900 rounded-full p-1 shadow-2xl">
+              <div className="flex flex-col sm:flex-row gap-1">
+                {Object.entries(currentLang.tabs).map(([key, label]) => (
+                  <button
+                    key={key}
+                    onClick={() => setActiveTab(key)}
+                    className={`px-6 py-3 rounded-full font-bebas text-lg transition-all duration-300 ${
+                      activeTab === key
+                        ? 'tab-active text-white'
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Tab Content */}
           <div className="flex-grow flex flex-col animate-pulse-neon">
             {activeTab === 'drinks' && renderDrinksTab()}
             {activeTab === 'hookah' && renderHookahTab()}
             {activeTab === 'food' && renderFoodTab()}
           </div>
         </main>
-      </div>
 
-      {/* Fixed Footer */}
-      <footer className="bg-gradient-to-r from-anthracite via-gray-900 to-anthracite border-t border-neon-cyan shadow-2xl mt-auto">
-        <div className="container mx-auto px-4 py-6">
-          <div className="text-center">
-            {/* Logo in footer - much smaller */}
-            <div className="mb-3 flex justify-center">
-              <div className="transform scale-40">
-                <SafariLogo />
+        {/* Footer - Fixed at bottom */}
+        <footer className="bg-gradient-to-r from-anthracite via-gray-900 to-anthracite border-t border-neon-cyan mt-auto">
+          <div className="container mx-auto px-4 py-8">
+            <div className="text-center">
+              {/* Logo in footer - much smaller */}
+              <div className="mb-4 flex justify-center">
+                <div className="transform scale-50">
+                  <SafariLogo />
+                </div>
+              </div>
+              
+              <div className="space-y-2 font-rajdhani">
+                <p className="text-gold font-semibold">{currentLang.footer.hours}</p>
+                <p className="text-gray-300">{currentLang.footer.address}</p>
+                <p className="text-neon-cyan font-semibold">{currentLang.footer.contact}</p>
               </div>
             </div>
-            
-            <div className="space-y-1 font-rajdhani">
-              <p className="text-gold font-semibold text-sm">{currentLang.footer.hours}</p>
-              <p className="text-gray-300 text-sm">{currentLang.footer.address}</p>
-              <p className="text-neon-cyan font-semibold text-sm">{currentLang.footer.contact}</p>
-            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }
