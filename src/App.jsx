@@ -201,7 +201,7 @@ function App() {
       <div className="content-wrapper flex-grow flex flex-col">
         {/* Header */}
         <header className="bg-gradient-to-r from-anthracite via-gray-900 to-anthracite border-b border-neon-pink shadow-neon-pink">
-          <div className="container mx-auto px-4 py-8">
+          <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-center gap-4">
               {/* Logo on the left - always */}
               <div className="flex-shrink-0">
@@ -210,23 +210,23 @@ function App() {
               
               {/* Title and subtitle on the right - always */}
               <div className="text-left">
-                <h1 className="font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-cyan neon-text mb-1 sm:mb-2">
+                <h1 className="font-bebas text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-cyan neon-text mb-1">
                   {currentLang.title}
                 </h1>
-                <p className="font-rajdhani text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 tracking-wider">
+                <p className="font-rajdhani text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 tracking-wider">
                   {currentLang.subtitle}
                 </p>
               </div>
             </div>
             
             {/* Language & Currency Controls */}
-            <div className="flex justify-center gap-4 mt-6">
+            <div className="flex justify-center gap-4 mt-3">
               <div className="flex gap-2">
                 {Object.keys(languages).map((lang) => (
                   <button
                     key={lang}
                     onClick={() => setLanguage(lang)}
-                    className={`px-3 py-1 rounded font-rajdhani text-sm transition-all duration-300 ${
+                    className={`px-2 py-1 rounded font-rajdhani text-xs transition-all duration-300 ${
                       language === lang
                         ? 'bg-neon-pink text-anthracite font-bold'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
@@ -241,7 +241,7 @@ function App() {
                   <button
                     key={curr}
                     onClick={() => setCurrency(curr)}
-                    className={`px-3 py-1 rounded font-rajdhani text-sm transition-all duration-300 ${
+                    className={`px-2 py-1 rounded font-rajdhani text-xs transition-all duration-300 ${
                       currency === curr
                         ? 'bg-neon-cyan text-anthracite font-bold'
                         : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
