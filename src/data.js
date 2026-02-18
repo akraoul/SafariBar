@@ -2,7 +2,6 @@ export const menuData = {
   drinks: {
     categories: {
       fr: {
-        "TOUS": "all",
         "COCKTAILS SIGNATURE": "signature",
         "COCKTAILS CLASSIQUES": "classics",
         "WHISKIES & BOURBONS": "whisky",
@@ -18,7 +17,6 @@ export const menuData = {
         "THÉS": "tea"
       },
       en: {
-        "ALL": "all",
         "SIGNATURE COCKTAILS": "signature",
         "CLASSIC COCKTAILS": "classics",
         "WHISKIES & BOURBONS": "whisky",
@@ -34,7 +32,6 @@ export const menuData = {
         "TEAS": "tea"
       },
       ru: {
-        "ВСЕ": "all",
         "СИГНАТУРНЫЕ КОКТЕЙЛИ": "signature",
         "КЛАССИЧЕСКИЕ КОКТЕЙЛИ": "classics",
         "ВИСКИ И БУРБОН": "whisky",

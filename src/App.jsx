@@ -4,7 +4,7 @@ import SafariLogo from './components/SafariLogo';
 
 function App() {
   const [activeTab, setActiveTab] = useState('drinks');
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState('signature');
   const [language, setLanguage] = useState('fr');
   const [currency, setCurrency] = useState('BYN');
   const [isMobile, setIsMobile] = useState(false);
@@ -86,9 +86,7 @@ function App() {
     const categories = menuData.drinks.categories[language];
     const items = menuData.drinks.items;
 
-    const displayItems = activeCategory === 'all' 
-      ? Object.values(items).flat()
-      : items[activeCategory] || [];
+    const displayItems = items[activeCategory] || [];
 
     return (
       <div className="flex flex-col md:flex-row gap-6 flex-grow">
